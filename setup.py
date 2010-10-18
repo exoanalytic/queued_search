@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='queued_search',
@@ -14,6 +14,8 @@ setup(
         'queued_search.management',
         'queued_search.management.commands',
     ],
+    install_requires=['distribute', 'queues>=0.5',
+        'django-haystack>=1.0', 'django'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
