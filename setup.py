@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='queued_search',
     version='1.0.3',
-    description='A queuing setup for integration with Haystack.',
+    description='A queuing setup for integration with Haystack and Celery.',
     author='Daniel Lindsley',
     author_email='daniel@toastdriven.com',
     url='http://github.com/toastdriven/queued_search',
@@ -14,8 +14,9 @@ setup(
         'queued_search.management',
         'queued_search.management.commands',
     ],
-    install_requires=['distribute', 'queues>=0.5',
-        'django-haystack>=1.0', 'django'],
+    install_requires=['distribute',
+        'django-haystack>=1.0',
+        'django'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',

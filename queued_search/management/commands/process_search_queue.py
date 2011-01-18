@@ -7,7 +7,7 @@ from django.core.management.base import NoArgsCommand
 from django.db.models.loading import get_model
 from haystack import site
 from haystack.exceptions import NotRegistered
-from queued_search import get_queue_name
+from queued_search import get_queue_name, utils
 try:
     set
 except ImportError:
@@ -142,23 +142,16 @@ class Command(NoArgsCommand):
         
         Converts 'notes.note.23' into ('notes.note', 23).
         """
-        bits = obj_identifier.split('.')
-        
-        if len(bits) < 2:
+
+        split_identifier = utils.split_obj_identifier(obj_identifier)
+        if split_obj_identifier == (None, None):
             self.log.error("Unable to parse object identifer '%s'. Moving on..." % obj_identifier)
-            return (None, None)
+        return split_obj_identifier
         
-        pk = bits[-1]
-        # In case Django ever handles full paths...
-        object_path = '.'.join(bits[:-1])
-        return (object_path, pk)
     
     def get_model_class(self, object_path):
         """Fetch the model's class in a standarized way."""
-        bits = object_path.split('.')
-        app_name = '.'.join(bits[:-1])
-        classname = bits[-1]
-        model_class = get_model(app_name, classname)
+        model_class = utils.get_model_class(object_path)
         
         if model_class is None:
             self.log.error("Could not load model from '%s'. Moving on..." % object_path)
