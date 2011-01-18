@@ -9,7 +9,7 @@ def add_to_index(obj_identifier, **kwargs):
     instance = model_class.objects.get(pk=pk)
 
     index = site.get_index(model_class)
-    index.backend.update(index, instance)
+    index.backend.update(index, [instance])
 
 @task(ignore_result=True)
 def delete_from_index(obj_identifier, **kwargs):

@@ -10,7 +10,7 @@ except ImportError:
     pass
 
 try:
-    from queue_search import tasks
+    from queued_search import tasks
 except ImportError:
     pass
 
