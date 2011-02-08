@@ -65,7 +65,9 @@ class CelerySearchIndex(QueuedSearchIndex):
 
     """
     def enqueue_save(self, instance, **kwargs):
-        tasks.add_to_index.delay(get_identifier(instance))
+        tasks.add_to_index.apply_async(args=[get_identifier(instance)],
+                countdown=1)
 
     def enqueue_delete(self, instance, **kwargs):
-        tasks.delete_from_index.delay(get_identifier(instance))
+        tasks.delete_from_index.apply_async(args=[get_identifier(instance)],
+                countdown=1)
