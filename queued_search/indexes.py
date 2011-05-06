@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.db import transaction
 from django.db.models import signals
 from haystack import indexes
 from haystack.utils import get_identifier
@@ -65,9 +65,9 @@ class CelerySearchIndex(QueuedSearchIndex):
 
     """
     def enqueue_save(self, instance, **kwargs):
-        tasks.add_to_index.apply_async(args=[get_identifier(instance)],
-                countdown=1)
+        transaction.commit()
+        tasks.add_to_index.delay(get_identifier(instance))
 
     def enqueue_delete(self, instance, **kwargs):
-        tasks.delete_from_index.apply_async(args=[get_identifier(instance)],
-                countdown=1)
+        transaction.commit()
+        tasks.delete_from_index.delay(get_identifier(instance))
