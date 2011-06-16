@@ -65,9 +65,11 @@ class CelerySearchIndex(QueuedSearchIndex):
 
     """
     def enqueue_save(self, instance, **kwargs):
-        transaction.commit()
+        if transaction.is_dirty():
+            transaction.commit_unless_managed()
         tasks.add_to_index.delay(get_identifier(instance))
 
     def enqueue_delete(self, instance, **kwargs):
-        transaction.commit()
+        if transaction.is_dirty():
+            transaction.commit_unless_managed()
         tasks.delete_from_index.delay(get_identifier(instance))
