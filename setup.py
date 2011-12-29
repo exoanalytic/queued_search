@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     name='queued_search',
-    version='1.0.3',
+    version='1.0.4',
     description='A queuing setup for integration with Haystack and Celery.',
     author='Daniel Lindsley',
     author_email='daniel@toastdriven.com',

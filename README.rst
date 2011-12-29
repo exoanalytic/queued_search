@@ -27,7 +27,7 @@ Setup
 =====
 
 #. Add ``queued_search`` to ``INSTALLED_APPS``.
-#. Alter all of your ``SearchIndex`` subclasses to inherit from ``queued_seearch.indexes.QueuedSearchIndex``.
+#. Alter all of your ``SearchIndex`` subclasses to inherit from ``queued_search.indexes.QueuedSearchIndex``.
 #. Ensure your queuing solution of choice is running.
 #. If using Queues: Setup a cron job to run the ``process_search_queue`` management command.
 #. If using Celery: Run a Celery worker.
